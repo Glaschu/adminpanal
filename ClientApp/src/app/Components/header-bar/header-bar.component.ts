@@ -1,15 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from "@angular/core";
+import {
+  BreakpointObserver,
+  Breakpoints,
+  BreakpointState
+} from "@angular/cdk/layout";
+import { Observable } from "rxjs";
+import { map } from "rxjs/operators";
+
 
 @Component({
   selector: 'app-header-bar',
   templateUrl: './header-bar.component.html',
   styleUrls: ['./header-bar.component.css']
 })
-export class HeaderBarComponent implements OnInit {
+export class HeaderBarComponent{
 
-  constructor() { }
+  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+    .pipe(
+      map(result => result.matches)
+    );
 
-  ngOnInit() {
-  }
+  constructor(private breakpointObserver: BreakpointObserver) { }
 
 }
